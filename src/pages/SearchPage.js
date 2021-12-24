@@ -21,9 +21,10 @@ function SearchPage() {
   //deconstruct the term, import the useStateValue and whatever input the user typed in will be pulled from the data layer
   const [{ term }, dispatch] = useStateValue();
   //passes the term input by user into the useGoogleSearch to run th eeffect and gets the result unique to the term
-  //   const { data } = useGoogleSearch(term);
+  const { data } = useGoogleSearch(term);
 
-  const data = Response;
+  //mock api call
+  //   const data = Response;
   return (
     <div className="searchPage">
       <div className="searchPage__header">
@@ -79,8 +80,27 @@ function SearchPage() {
           <p className="searchPage__resultCount">
             About {data?.searchInformation.formattedTotalResults}
             results {data?.searchInformation.formattedSearchTime} seconds for
-            {data}
+            {term}
           </p>
+          {data?.items.map((item) => (
+            <div className="searchPage__result">
+              <a href={item.link} target="_blank">
+                {item.pagemap?.cse_image?.length > 0 &&
+                  item.pagemap?.cse_image[0].src && (
+                    <img
+                      className="searchPage__resultImage"
+                      src={item.pagemap?.cse_image[0].src}
+                      alt="Google Image"
+                    />
+                  )}
+                {item.displayLink}
+              </a>
+              <a href={item.link} className="searchPage__resultTitle">
+                <h2>{item.title}</h2>
+              </a>
+              <p className="searchPage__resultSnippet">{item.snippet}</p>
+            </div>
+          ))}
         </div>
       )}
     </div>
