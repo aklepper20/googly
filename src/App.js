@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Home from "./pages/Home";
+import SearchPage from "./pages/SearchPage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+// Any COMPONENT that sits within the router and routes can have access to the Link,
+//so home component, search component - go to home component to learn about links
+
+//
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Router>
+        <Routes>
+          {/* when URL is /, it will render the home page */}
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<SearchPage />}></Route>
+        </Routes>
+      </Router>
     </div>
   );
 }
